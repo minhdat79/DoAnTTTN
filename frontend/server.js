@@ -5,18 +5,17 @@ import cors from 'cors';
 
 const app = express();
 
-// Middleware
+
 app.use(cors());
 app.use(bodyParser.json());
 
-// MongoDB Connection
+
 const mongoURI = 'mongodb+srv://dat123:dat123@cluster0.ix67n.mongodb.net/mydatabase?retryWrites=true&w=majority';
 mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected!'))
   .catch(err => console.log(err));
 
-// Product Schema
 const productSchema = new mongoose.Schema({
   name: String,
   price: Number,
@@ -25,7 +24,7 @@ const productSchema = new mongoose.Schema({
 
 const Product = mongoose.model('Product', productSchema);
 
-// Routes
+
 app.get('/api/products', async (req, res) => {
   try {
     const products = await Product.find();
@@ -35,6 +34,6 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
-// Start Server
+
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
